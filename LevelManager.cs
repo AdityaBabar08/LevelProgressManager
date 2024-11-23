@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private DifficultyAdjuster difficultyAdjuster;
     public PerformanceTracker performanceTracker;
     private int currentSubLevel = 0;
-    //[SerializeField] private int totalSubLevelsPerLevel = 3;
+    [SerializeField] private int totalSubLevelsPerLevel = 3;
 
     void Start()
     {

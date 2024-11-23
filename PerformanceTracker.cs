@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PerformanceTracker : MonoBehaviour
 {
-    public event Action<string> OnDifficultyChange; // Easy, Medium, Hard
+    public event Action<string> OnDifficultyChange; 
 
     private float startTime;
     private int retryCount;
@@ -37,7 +37,7 @@ public class PerformanceTracker : MonoBehaviour
     {
         float elapsedTime = Time.time - startTime;
 
-        // Example thresholds for performance evaluation
+        
         if (retryCount > 3 || elapsedTime > 60) // Struggling
         {
             OnDifficultyChange?.Invoke("Easy");
@@ -58,7 +58,7 @@ public class PerformanceTracker : MonoBehaviour
     {
         if (completed)
         {
-            xpSystem.AddXP(50); // Example: bonus XP
+            xpSystem.AddXP(50); 
             Debug.Log("Reward: Bonus XP awarded!");
         }
         else
