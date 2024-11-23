@@ -7,19 +7,15 @@ public class DifficultyAdjuster : MonoBehaviour
     public enum Difficulty { Easy, Medium, Hard }
     private Difficulty currentDifficulty;
 
-    public Difficulty GetCurrentDifficulty()
+    public void SetDifficulty(string difficultyLevel)
     {
-        return currentDifficulty;
-    }
-
-    public void AdjustDifficulty(int playerLevel)
-    {
-        if (playerLevel < 5)
-            currentDifficulty = Difficulty.Easy;
-        else if (playerLevel < 10)
-            currentDifficulty = Difficulty.Medium;
-        else
-            currentDifficulty = Difficulty.Hard;
+        currentDifficulty = difficultyLevel switch
+        {
+            "Easy" => Difficulty.Easy,
+            "Medium" => Difficulty.Medium,
+            "Hard" => Difficulty.Hard,
+            _ => currentDifficulty
+        };
 
         Debug.Log("Difficulty adjusted to: " + currentDifficulty);
     }

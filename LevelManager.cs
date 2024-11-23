@@ -6,28 +6,47 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private XPSystem xpSystem;
     [SerializeField] private DifficultyAdjuster difficultyAdjuster;
-
+    public PerformanceTracker performanceTracker;
     private int currentSubLevel = 0;
-    [SerializeField] private int totalSubLevelsPerLevel = 3;
+    //[SerializeField] private int totalSubLevelsPerLevel = 3;
+
+    void Start()
+    {
+        performanceTracker.OnDifficultyChange += difficultyAdjuster.SetDifficulty;
+        StartNewSubLevel();
+    }
+
+
 
     void Update()
     {
-        difficultyAdjuster.AdjustDifficulty(xpSystem.GetLevel());
-
         if (xpSystem.CheckLevelUp())
         {
             currentSubLevel = 0;
             xpSystem.LevelUp();
+            StartNewSubLevel();
         }
         else if (CheckSubLevelCompletion())
         {
             currentSubLevel++;
-            difficultyAdjuster.AdjustDifficulty(xpSystem.GetLevel());
+            StartNewSubLevel();
         }
+    }
+
+    void StartNewSubLevel()
+    {
+        performanceTracker.StartTracking(GetTotalQuestionsForCurrentSubLevel());
+    }
+
+    int GetTotalQuestionsForCurrentSubLevel()
+    {
+        
+        return 10 + xpSystem.GetLevel() * 2;
     }
 
     bool CheckSubLevelCompletion()
     {
+        
         return xpSystem.GetCurrentXP() >= GetXPThresholdForNextSubLevel();
     }
 
@@ -35,4 +54,6 @@ public class LevelManager : MonoBehaviour
     {
         return xpSystem.GetLevel() * 100 + currentSubLevel * 50;
     }
+
+    
 }
